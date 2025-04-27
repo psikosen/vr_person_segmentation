@@ -1,0 +1,20 @@
+# Run Log - Sun Apr 27 00:21:19 EDT 2025
+Starting 360 VR Person Segmentation Pipeline...
+Activating virtual environment...
+Running pipeline with arguments: --input-video 360.mp4 --output-video ./output/my_result.webm --model-path models/yolov8x-seg.pt --confidence 0.2 --viewpoint-hfov 90.0 --viewpoint-vfov 60.0
+2025-04-27 00:21:20 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:21:20 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:21:20 - INFO - Loading configuration...
+2025-04-27 00:21:20 - ERROR - An unhandled error occurred
+Traceback (most recent call last):
+  File "/Users/raymondgonzalez/Desktop/vr_person_segmentation/src/main.py", line 86, in main
+    config = load_config(args, args.config)
+  File "/Users/raymondgonzalez/Desktop/vr_person_segmentation/src/config.py", line 123, in load_config
+    _validate_config(config)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/raymondgonzalez/Desktop/vr_person_segmentation/src/config.py", line 175, in _validate_config
+    raise ValueError(f"Model file not found: {config['model_path']}")
+ValueError: Model file not found: models/yolov8x-seg.pt
+2025-04-27 00:21:20 - ERROR - Pipeline failed after 0.00 seconds
+Pipeline failed with exit status: 1
+Check logs for details.

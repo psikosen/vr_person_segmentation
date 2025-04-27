@@ -1,0 +1,35 @@
+# Improved Run Log - Sun Apr 27 00:11:54 EDT 2025
+Starting Improved 360 VR Person Segmentation Pipeline...
+Activating virtual environment...
+Running improved pipeline with arguments:  --config improved_segmentation.yaml
+2025-04-27 00:11:54 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:11:54 - INFO - Loading configuration...
+2025-04-27 00:11:54 - INFO - Loaded configuration from: improved_segmentation.yaml
+2025-04-27 00:11:54 - INFO - Created temporary directory: temp
+2025-04-27 00:11:54 - INFO - Configuration loaded successfully
+2025-04-27 00:11:54 - INFO - Executing pipeline...
+2025-04-27 00:11:54 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:11:54 - INFO - Input video: 360.mp4
+2025-04-27 00:11:54 - INFO - Output video: output/output_improved.webm
+2025-04-27 00:11:54 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-27 00:11:54 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-27 00:11:55 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-27 00:11:55 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-27 00:11:55 - INFO - Step 2: Getting video properties...
+2025-04-27 00:11:55 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-27 00:11:55 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-27 00:11:56 - INFO - Device will be auto-selected by Ultralytics
+2025-04-27 00:11:56 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-27 00:11:56 - INFO - Model loaded successfully
+2025-04-27 00:11:56 - INFO - Step 4: Processing frames and encoding output...
+2025-04-27 00:11:56 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 20 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output_improved.webm
+Encoding frames:   0%|          | 0/250 [00:00<?, ?frame/s]2025-04-27 00:11:56 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+
+Processing frames:   0%|          | 0/250 [00:00<?, ?frame/s][AProcessing frames:   0%|          | 0/250 [00:00<?, ?frame/s]
+Encoding frames:   0%|          | 0/250 [00:00<?, ?frame/s]
+2025-04-27 00:11:56 - INFO - Successfully encoded 0 frames to: output/output_improved.webm
+2025-04-27 00:11:56 - INFO - Successfully encoded output video: output/output_improved.webm
+2025-04-27 00:11:56 - INFO - Step 5: Cleaning up temporary files...
+2025-04-27 00:11:56 - INFO - Pipeline completed successfully in 1.12 seconds
+2025-04-27 00:11:56 - INFO - Pipeline completed successfully in 1.12 seconds
+Improved pipeline completed successfully!

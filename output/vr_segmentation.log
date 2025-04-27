@@ -1,0 +1,399 @@
+2025-04-26 23:46:03 - INFO - Logging to: output/vr_segmentation.log
+2025-04-26 23:46:03 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-26 23:46:03 - INFO - Loading configuration...
+2025-04-26 23:46:03 - INFO - Configuration loaded successfully
+2025-04-26 23:46:03 - INFO - Executing pipeline...
+2025-04-26 23:46:03 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-26 23:46:03 - INFO - Input video: 360.mp4
+2025-04-26 23:46:03 - INFO - Output video: output/output.webm
+2025-04-26 23:46:03 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-26 23:46:03 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=e:r:w=90.0:h=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-26 23:46:03 - ERROR - FFmpeg error (code 234): ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 16.0.0 (clang-1600.0.26.6)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '360.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf58.29.100
+  Duration: 00:00:10.00, start: 0.000000, bitrate: 1004 kb/s
+  Stream #0:0[0x1](und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(progressive), 624x312 [SAR 1:1 DAR 2:1], 1003 kb/s, 25 fps, 25 tbr, 12800 tbn (default)
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+[Parsed_v360_0 @ 0x600003cd8210] [Eval @ 0x16f72b8d0] Undefined constant or missing '(' in 'r'
+[Parsed_v360_0 @ 0x600003cd8210] Unable to parse option value "r"
+Error applying option 'output' to filter 'v360': Invalid argument
+Error opening output file temp/extracted_viewport.mp4.
+Error opening output files: Invalid argument
+
+2025-04-26 23:46:03 - ERROR - Viewport extraction failed
+2025-04-26 23:46:03 - ERROR - Pipeline failed after 0.11 seconds
+2025-04-26 23:49:26 - INFO - Logging to: output/vr_segmentation.log
+2025-04-26 23:49:26 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-26 23:49:26 - INFO - Loading configuration...
+2025-04-26 23:49:26 - INFO - Configuration loaded successfully
+2025-04-26 23:49:26 - INFO - Executing pipeline...
+2025-04-26 23:49:26 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-26 23:49:26 - INFO - Input video: 360.mp4
+2025-04-26 23:49:26 - INFO - Output video: output/output.webm
+2025-04-26 23:49:26 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-26 23:49:26 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-26 23:49:27 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-26 23:49:27 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-26 23:49:27 - INFO - Step 2: Getting video properties...
+2025-04-26 23:49:27 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-26 23:49:27 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-26 23:49:28 - INFO - Device will be auto-selected by Ultralytics
+2025-04-26 23:49:28 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-26 23:49:28 - INFO - Model loaded successfully
+2025-04-26 23:49:28 - INFO - Step 4: Processing frames and encoding output...
+2025-04-26 23:49:28 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline medium -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output.webm
+2025-04-26 23:49:28 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-26 23:49:31 - ERROR - Broken pipe writing to FFmpeg. FFmpeg may have crashed.
+2025-04-26 23:49:31 - ERROR - FFmpeg encoding failed with code 234
+2025-04-26 23:49:31 - ERROR - FFmpeg stderr: ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 16.0.0 (clang-1600.0.26.6)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+Input #0, rawvideo, from 'fd:':
+  Duration: N/A, start: 0.000000, bitrate: 155750 kb/s
+  Stream #0:0: Video: rawvideo (RGBA / 0x41424752), rgba, 624x312, 155750 kb/s, 25 tbr, 25 tbn
+[libvpx-vp9 @ 0x137705a20] [Eval @ 0x16aedc330] Undefined constant or missing '(' in 'medium'
+[libvpx-vp9 @ 0x137705a20] Unable to parse option value "medium"
+[libvpx-vp9 @ 0x137705a20] Error setting option deadline to value medium.
+[vost#0:0/libvpx-vp9 @ 0x137705750] Error applying encoder options: Invalid argument
+Error opening output file output/output.webm.
+Error opening output files: Invalid argument
+
+2025-04-26 23:49:31 - ERROR - Video encoding failed
+2025-04-26 23:49:31 - ERROR - Pipeline failed after 4.31 seconds
+2025-04-26 23:51:11 - INFO - Logging to: output/vr_segmentation.log
+2025-04-26 23:51:11 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-26 23:51:11 - INFO - Loading configuration...
+2025-04-26 23:51:11 - INFO - Configuration loaded successfully
+2025-04-26 23:51:11 - INFO - Executing pipeline...
+2025-04-26 23:51:11 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-26 23:51:11 - INFO - Input video: 360.mp4
+2025-04-26 23:51:11 - INFO - Output video: output/output.webm
+2025-04-26 23:51:11 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-26 23:51:11 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-26 23:51:11 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-26 23:51:11 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-26 23:51:11 - INFO - Step 2: Getting video properties...
+2025-04-26 23:51:11 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-26 23:51:11 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-26 23:51:12 - INFO - Device will be auto-selected by Ultralytics
+2025-04-26 23:51:12 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-26 23:51:12 - INFO - Model loaded successfully
+2025-04-26 23:51:12 - INFO - Step 4: Processing frames and encoding output...
+2025-04-26 23:51:12 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output.webm
+2025-04-26 23:51:12 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-26 23:51:26 - INFO - Successfully encoded 250 frames to: output/output.webm
+2025-04-26 23:51:26 - INFO - Successfully encoded output video: output/output.webm
+2025-04-26 23:51:26 - INFO - Step 5: Cleaning up temporary files...
+2025-04-26 23:51:26 - INFO - Pipeline completed successfully in 15.32 seconds
+2025-04-26 23:51:26 - INFO - Pipeline completed successfully in 15.32 seconds
+2025-04-26 23:53:01 - INFO - Logging to: output/vr_segmentation.log
+2025-04-26 23:53:01 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-26 23:53:01 - INFO - Loading configuration...
+2025-04-26 23:53:01 - INFO - Created temporary directory: temp
+2025-04-26 23:53:01 - INFO - Configuration loaded successfully
+2025-04-26 23:53:01 - INFO - Executing pipeline...
+2025-04-26 23:53:01 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-26 23:53:01 - INFO - Input video: 360.mp4
+2025-04-26 23:53:01 - INFO - Output video: output/output.webm
+2025-04-26 23:53:01 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-26 23:53:01 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-26 23:53:01 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-26 23:53:01 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-26 23:53:01 - INFO - Step 2: Getting video properties...
+2025-04-26 23:53:01 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-26 23:53:01 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-26 23:53:02 - INFO - Device will be auto-selected by Ultralytics
+2025-04-26 23:53:02 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-26 23:53:02 - INFO - Model loaded successfully
+2025-04-26 23:53:02 - INFO - Step 4: Processing frames and encoding output...
+2025-04-26 23:53:02 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output.webm
+2025-04-26 23:53:02 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-26 23:53:13 - INFO - Successfully encoded 250 frames to: output/output.webm
+2025-04-26 23:53:13 - INFO - Successfully encoded output video: output/output.webm
+2025-04-26 23:53:13 - INFO - Step 5: Cleaning up temporary files...
+2025-04-26 23:53:13 - INFO - Pipeline completed successfully in 12.30 seconds
+2025-04-26 23:53:13 - INFO - Pipeline completed successfully in 12.30 seconds
+2025-04-27 00:00:11 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:00:11 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:00:11 - INFO - Loading configuration...
+2025-04-27 00:00:11 - INFO - Created temporary directory: temp
+2025-04-27 00:00:11 - INFO - Configuration loaded successfully
+2025-04-27 00:00:11 - INFO - Executing pipeline...
+2025-04-27 00:00:11 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:00:11 - INFO - Input video: 360.mp4
+2025-04-27 00:00:11 - INFO - Output video: output/output.webm
+2025-04-27 00:00:11 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-27 00:00:11 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-27 00:00:12 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-27 00:00:12 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-27 00:00:12 - INFO - Step 2: Getting video properties...
+2025-04-27 00:00:12 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-27 00:00:12 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-27 00:00:13 - INFO - Device will be auto-selected by Ultralytics
+2025-04-27 00:00:13 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-27 00:00:13 - INFO - Model loaded successfully
+2025-04-27 00:00:13 - INFO - Step 4: Processing frames and encoding output...
+2025-04-27 00:00:13 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output.webm
+2025-04-27 00:00:13 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-27 00:00:14 - INFO - Successfully encoded 4 frames to: output/output.webm
+2025-04-27 00:00:14 - INFO - Successfully encoded output video: output/output.webm
+2025-04-27 00:00:14 - INFO - Step 5: Cleaning up temporary files...
+2025-04-27 00:00:14 - INFO - Pipeline completed successfully in 2.62 seconds
+2025-04-27 00:00:14 - INFO - Pipeline completed successfully in 2.62 seconds
+2025-04-27 00:00:23 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:00:23 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:00:23 - INFO - Loading configuration...
+2025-04-27 00:00:23 - INFO - Created temporary directory: temp
+2025-04-27 00:00:23 - INFO - Configuration loaded successfully
+2025-04-27 00:00:23 - INFO - Executing pipeline...
+2025-04-27 00:00:23 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:00:23 - INFO - Input video: 360.mp4
+2025-04-27 00:00:23 - INFO - Output video: output/output.webm
+2025-04-27 00:00:23 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-27 00:00:23 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-27 00:00:23 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-27 00:00:23 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-27 00:00:23 - INFO - Step 2: Getting video properties...
+2025-04-27 00:00:23 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-27 00:00:23 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-27 00:00:24 - DEBUG - matplotlib data path: /Users/raymondgonzalez/Desktop/vr_person_segmentation/venv/lib/python3.13/site-packages/matplotlib/mpl-data
+2025-04-27 00:00:24 - DEBUG - CONFIGDIR=/Users/raymondgonzalez/.matplotlib
+2025-04-27 00:00:24 - DEBUG - interactive is False
+2025-04-27 00:00:24 - DEBUG - platform is darwin
+2025-04-27 00:00:24 - DEBUG - CACHEDIR=/Users/raymondgonzalez/.matplotlib
+2025-04-27 00:00:24 - DEBUG - Using fontManager instance from /Users/raymondgonzalez/.matplotlib/fontlist-v390.json
+2025-04-27 00:00:24 - INFO - Device will be auto-selected by Ultralytics
+2025-04-27 00:00:24 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-27 00:00:24 - INFO - Model loaded successfully
+2025-04-27 00:00:24 - INFO - Step 4: Processing frames and encoding output...
+2025-04-27 00:00:24 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output.webm
+2025-04-27 00:00:24 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-27 00:00:25 - DEBUG - Detected 1 person instances
+2025-04-27 00:00:25 - INFO - Successfully encoded 4 frames to: output/output.webm
+2025-04-27 00:00:25 - INFO - Successfully encoded output video: output/output.webm
+2025-04-27 00:00:25 - INFO - Step 5: Cleaning up temporary files...
+2025-04-27 00:00:25 - INFO - Pipeline completed successfully in 1.84 seconds
+2025-04-27 00:00:25 - INFO - Pipeline completed successfully in 1.84 seconds
+2025-04-27 00:01:25 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:01:25 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:01:25 - INFO - Loading configuration...
+2025-04-27 00:01:25 - INFO - Created temporary directory: temp
+2025-04-27 00:01:25 - INFO - Configuration loaded successfully
+2025-04-27 00:01:25 - INFO - Executing pipeline...
+2025-04-27 00:01:25 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:01:25 - INFO - Input video: 360.mp4
+2025-04-27 00:01:25 - INFO - Output video: output/output.webm
+2025-04-27 00:01:25 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-27 00:01:25 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-27 00:01:25 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-27 00:01:25 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-27 00:01:25 - INFO - Step 2: Getting video properties...
+2025-04-27 00:01:25 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-27 00:01:25 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-27 00:01:26 - DEBUG - matplotlib data path: /Users/raymondgonzalez/Desktop/vr_person_segmentation/venv/lib/python3.13/site-packages/matplotlib/mpl-data
+2025-04-27 00:01:26 - DEBUG - CONFIGDIR=/Users/raymondgonzalez/.matplotlib
+2025-04-27 00:01:26 - DEBUG - interactive is False
+2025-04-27 00:01:26 - DEBUG - platform is darwin
+2025-04-27 00:01:26 - DEBUG - CACHEDIR=/Users/raymondgonzalez/.matplotlib
+2025-04-27 00:01:26 - DEBUG - Using fontManager instance from /Users/raymondgonzalez/.matplotlib/fontlist-v390.json
+2025-04-27 00:01:27 - INFO - Device will be auto-selected by Ultralytics
+2025-04-27 00:01:27 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-27 00:01:27 - INFO - Model loaded successfully
+2025-04-27 00:01:27 - INFO - Step 4: Processing frames and encoding output...
+2025-04-27 00:01:27 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output.webm
+2025-04-27 00:01:27 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-27 00:01:27 - DEBUG - Mask size: 2661 pixels, 1.37% of frame
+2025-04-27 00:01:27 - DEBUG - Mask size: 1254 pixels, 0.64% of frame
+2025-04-27 00:01:27 - DEBUG - Detected 2 person instances
+2025-04-27 00:01:27 - INFO - Successfully encoded 0 frames to: output/output.webm
+2025-04-27 00:01:27 - INFO - Successfully encoded output video: output/output.webm
+2025-04-27 00:01:27 - INFO - Step 5: Cleaning up temporary files...
+2025-04-27 00:01:27 - INFO - Pipeline completed successfully in 2.46 seconds
+2025-04-27 00:01:27 - INFO - Pipeline completed successfully in 2.47 seconds
+2025-04-27 00:01:47 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:01:47 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:01:47 - INFO - Loading configuration...
+2025-04-27 00:01:47 - ERROR - An unhandled error occurred
+Traceback (most recent call last):
+  File "/Users/raymondgonzalez/Desktop/vr_person_segmentation/src/main.py", line 86, in main
+    config = load_config(args, args.config)
+  File "/Users/raymondgonzalez/Desktop/vr_person_segmentation/src/config.py", line 120, in load_config
+    _validate_config(config)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/raymondgonzalez/Desktop/vr_person_segmentation/src/config.py", line 168, in _validate_config
+    raise ValueError(f"Input video file not found: {config['input_video']}")
+ValueError: Input video file not found: temp/extracted_viewport.mp4
+2025-04-27 00:01:47 - ERROR - Pipeline failed after 0.00 seconds
+2025-04-27 00:03:33 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:03:33 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:03:33 - INFO - Loading configuration...
+2025-04-27 00:03:33 - INFO - Created temporary directory: temp
+2025-04-27 00:03:33 - INFO - Configuration loaded successfully
+2025-04-27 00:03:33 - INFO - Executing pipeline...
+2025-04-27 00:03:33 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:03:33 - INFO - Input video: 360.mp4
+2025-04-27 00:03:33 - INFO - Output video: output/output_improved.webm
+2025-04-27 00:03:33 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-27 00:03:33 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-27 00:03:33 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-27 00:03:33 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-27 00:03:33 - INFO - Step 2: Getting video properties...
+2025-04-27 00:03:33 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-27 00:03:33 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-27 00:03:34 - INFO - Device will be auto-selected by Ultralytics
+2025-04-27 00:03:34 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-27 00:03:34 - INFO - Model loaded successfully
+2025-04-27 00:03:34 - INFO - Step 4: Processing frames and encoding output...
+2025-04-27 00:03:34 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output_improved.webm
+2025-04-27 00:03:34 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-27 00:03:49 - INFO - Successfully encoded 250 frames to: output/output_improved.webm
+2025-04-27 00:03:49 - INFO - Successfully encoded output video: output/output_improved.webm
+2025-04-27 00:03:49 - INFO - Step 5: Cleaning up temporary files...
+2025-04-27 00:03:49 - INFO - Pipeline completed successfully in 15.72 seconds
+2025-04-27 00:03:49 - INFO - Pipeline completed successfully in 15.73 seconds
+2025-04-27 00:04:50 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:04:50 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:04:50 - INFO - Loading configuration...
+2025-04-27 00:04:50 - INFO - Created temporary directory: temp
+2025-04-27 00:04:50 - INFO - Configuration loaded successfully
+2025-04-27 00:04:50 - INFO - Executing pipeline...
+2025-04-27 00:04:50 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:04:50 - INFO - Input video: 360.mp4
+2025-04-27 00:04:50 - INFO - Output video: output/output.webm
+2025-04-27 00:04:50 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-27 00:04:50 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-27 00:04:51 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-27 00:04:51 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-27 00:04:51 - INFO - Step 2: Getting video properties...
+2025-04-27 00:04:51 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-27 00:04:51 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-27 00:04:52 - INFO - Device will be auto-selected by Ultralytics
+2025-04-27 00:04:52 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-27 00:04:52 - INFO - Model loaded successfully
+2025-04-27 00:04:52 - INFO - Step 4: Processing frames and encoding output...
+2025-04-27 00:04:52 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output.webm
+2025-04-27 00:04:52 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-27 00:05:05 - INFO - Successfully encoded 250 frames to: output/output.webm
+2025-04-27 00:05:05 - INFO - Successfully encoded output video: output/output.webm
+2025-04-27 00:05:05 - INFO - Step 5: Cleaning up temporary files...
+2025-04-27 00:05:05 - INFO - Pipeline completed successfully in 14.87 seconds
+2025-04-27 00:05:05 - INFO - Pipeline completed successfully in 14.88 seconds
+2025-04-27 00:12:46 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:12:46 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:12:46 - INFO - Loading configuration...
+2025-04-27 00:12:46 - INFO - Created temporary directory: temp
+2025-04-27 00:12:46 - INFO - Configuration loaded successfully
+2025-04-27 00:12:46 - INFO - Executing pipeline...
+2025-04-27 00:12:46 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:12:46 - INFO - Input video: 360.mp4
+2025-04-27 00:12:46 - INFO - Output video: output/output_advanced.webm
+2025-04-27 00:12:46 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-27 00:12:46 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-27 00:12:46 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-27 00:12:46 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-27 00:12:46 - INFO - Step 2: Getting video properties...
+2025-04-27 00:12:46 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-27 00:12:46 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-27 00:12:47 - INFO - Device will be auto-selected by Ultralytics
+2025-04-27 00:12:47 - INFO - Successfully loaded YOLOv8 model: yolov8x-seg.pt
+2025-04-27 00:12:47 - INFO - Model loaded successfully
+2025-04-27 00:12:47 - INFO - Step 4: Processing frames and encoding output...
+2025-04-27 00:12:47 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output_advanced.webm
+2025-04-27 00:12:47 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-27 00:12:47 - INFO - Successfully encoded 0 frames to: output/output_advanced.webm
+2025-04-27 00:12:47 - INFO - Successfully encoded output video: output/output_advanced.webm
+2025-04-27 00:12:47 - INFO - Step 5: Cleaning up temporary files...
+2025-04-27 00:12:47 - INFO - Pipeline completed successfully in 1.15 seconds
+2025-04-27 00:12:47 - INFO - Pipeline completed successfully in 1.16 seconds
+2025-04-27 00:13:17 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:13:17 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:13:17 - INFO - Loading configuration...
+2025-04-27 00:13:17 - INFO - Created temporary directory: temp
+2025-04-27 00:13:17 - INFO - Configuration loaded successfully
+2025-04-27 00:13:17 - INFO - Executing pipeline...
+2025-04-27 00:13:17 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:13:17 - INFO - Input video: 360.mp4
+2025-04-27 00:13:17 - INFO - Output video: output/output_final.webm
+2025-04-27 00:13:17 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-27 00:13:17 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-27 00:13:17 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-27 00:13:17 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-27 00:13:17 - INFO - Step 2: Getting video properties...
+2025-04-27 00:13:17 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-27 00:13:17 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-27 00:13:18 - INFO - Device will be auto-selected by Ultralytics
+2025-04-27 00:13:18 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-27 00:13:18 - INFO - Model loaded successfully
+2025-04-27 00:13:18 - INFO - Step 4: Processing frames and encoding output...
+2025-04-27 00:13:18 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output_final.webm
+2025-04-27 00:13:18 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-27 00:13:18 - INFO - Successfully encoded 0 frames to: output/output_final.webm
+2025-04-27 00:13:18 - INFO - Successfully encoded output video: output/output_final.webm
+2025-04-27 00:13:18 - INFO - Step 5: Cleaning up temporary files...
+2025-04-27 00:13:18 - INFO - Pipeline completed successfully in 1.11 seconds
+2025-04-27 00:13:18 - INFO - Pipeline completed successfully in 1.12 seconds
+2025-04-27 00:14:58 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:14:58 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:14:58 - INFO - Loading configuration...
+2025-04-27 00:14:58 - INFO - Created temporary directory: temp
+2025-04-27 00:14:58 - INFO - Configuration loaded successfully
+2025-04-27 00:14:58 - INFO - Executing pipeline...
+2025-04-27 00:14:58 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:14:58 - INFO - Input video: 360.mp4
+2025-04-27 00:14:58 - INFO - Output video: output/output_improved.webm
+2025-04-27 00:14:58 - INFO - Step 1: Extracting viewport from 360° video...
+2025-04-27 00:14:58 - INFO - Extracting viewport with command: ffmpeg -i 360.mp4 -vf v360=equirect:rectilinear:h_fov=90.0:v_fov=60.0:yaw=0.0:pitch=0.0:roll=0.0 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -an -y temp/extracted_viewport.mp4
+2025-04-27 00:14:58 - INFO - Successfully extracted viewport to: temp/extracted_viewport.mp4
+2025-04-27 00:14:58 - INFO - Viewport extracted to: temp/extracted_viewport.mp4
+2025-04-27 00:14:58 - INFO - Step 2: Getting video properties...
+2025-04-27 00:14:58 - INFO - Video properties: 624x312 @ 25.0 fps
+2025-04-27 00:14:58 - INFO - Step 3: Loading YOLOv8 segmentation model...
+2025-04-27 00:14:59 - INFO - Device will be auto-selected by Ultralytics
+2025-04-27 00:14:59 - INFO - Successfully loaded YOLOv8 model: models/yolov8s-seg.pt
+2025-04-27 00:14:59 - INFO - Model loaded successfully
+2025-04-27 00:14:59 - INFO - Step 4: Processing frames and encoding output...
+2025-04-27 00:14:59 - INFO - Encoding with command: ffmpeg -f rawvideo -pixel_format rgba -video_size 624x312 -framerate 25.0 -i - -c:v libvpx-vp9 -pix_fmt yuva420p -crf 23 -b:v 0 -deadline good -cpu-used 1 -auto-alt-ref 1 -lag-in-frames 25 -an -y output/output_improved.webm
+2025-04-27 00:14:59 - INFO - Processing 250 frames from temp/extracted_viewport.mp4
+2025-04-27 00:14:59 - INFO - Successfully encoded 0 frames to: output/output_improved.webm
+2025-04-27 00:14:59 - INFO - Successfully encoded output video: output/output_improved.webm
+2025-04-27 00:14:59 - INFO - Step 5: Cleaning up temporary files...
+2025-04-27 00:14:59 - INFO - Pipeline completed successfully in 1.19 seconds
+2025-04-27 00:14:59 - INFO - Pipeline completed successfully in 1.20 seconds
+2025-04-27 00:21:20 - INFO - Logging to: output/vr_segmentation.log
+2025-04-27 00:21:20 - INFO - Starting 360 VR Person Segmentation Pipeline
+2025-04-27 00:21:20 - INFO - Loading configuration...
+2025-04-27 00:21:20 - ERROR - An unhandled error occurred
+Traceback (most recent call last):
+  File "/Users/raymondgonzalez/Desktop/vr_person_segmentation/src/main.py", line 86, in main
+    config = load_config(args, args.config)
+  File "/Users/raymondgonzalez/Desktop/vr_person_segmentation/src/config.py", line 123, in load_config
+    _validate_config(config)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/raymondgonzalez/Desktop/vr_person_segmentation/src/config.py", line 175, in _validate_config
+    raise ValueError(f"Model file not found: {config['model_path']}")
+ValueError: Model file not found: models/yolov8x-seg.pt
+2025-04-27 00:21:20 - ERROR - Pipeline failed after 0.00 seconds

@@ -1,0 +1,46 @@
+# Advanced configuration for 360 VR Person Segmentation Pipeline using YOLOv8x-seg
+# Optimized for maximum quality full-body shape detection
+
+# Input/Output
+input_video: 360.mp4  # Path to input 360° video
+output_video: ./output/output_advanced.webm  # Path to output WebM video with alpha channel
+temp_directory: temp  # Directory for temporary files
+
+# Model settings
+model_path: ./yolov8x-seg.pt  # Path to YOLOv8x segmentation model (larger and more accurate)
+confidence_threshold: 0.2  # Even lower threshold to detect more of the body
+device: null  # Device for model inference (null = auto-detect, 'cpu', 'cuda', 'mps')
+
+# Segmentation enhancement - extreme settings for best body shape detection
+iou_threshold: 0.35  # Lower IoU threshold for more overlapping detections
+apply_morphology: true  # Apply morphological operations to improve mask completeness
+alpha_edge_smooth: true  # Apply slight smoothing to alpha channel edges
+
+# Advanced segmentation parameters
+mask_threshold: 0.15  # Very low threshold to capture entire person silhouette
+morph_kernel_size: 9   # Larger kernel for morphological operations for smoother edges
+morph_iterations: 3    # More iterations for dilation to better fill body shape gaps
+overlap_threshold: 0.2  # Lower threshold for merging overlapping masks
+
+# Viewpoint parameters (for 360° to 2D conversion)
+viewpoint:
+  hfov: 90.0  # Horizontal field of view (degrees)
+  vfov: 60.0  # Vertical field of view (degrees)
+  yaw: 0.0    # Yaw angle (degrees)
+  pitch: 0.0  # Pitch angle (degrees)
+  roll: 0.0   # Roll angle (degrees)
+
+# Video encoding parameters
+encoding:
+  crf: 18      # Higher quality (lower CRF)
+  preset: slow  # Slower preset for higher quality encoding
+
+# External tools
+ffmpeg_path: ffmpeg  # Path to FFmpeg executable
+ffprobe_path: ffprobe  # Path to FFprobe executable
+
+# Cleanup temporary files
+cleanup_temp: true  # Whether to clean up temporary files after processing
+
+# Progress display
+show_progress: true  # Whether to show progress bar during processing

@@ -1,0 +1,46 @@
+# Enhanced configuration for 360 VR Person Segmentation Pipeline
+# Optimized for better full-body shape detection
+
+# Input/Output
+input_video: 360.mp4  # Path to input 360° video
+output_video: ./output/output_improved.webm  # Path to output WebM video with alpha channel
+temp_directory: temp  # Directory for temporary files
+
+# Model settings
+model_path: ./models/yolov8s-seg.pt  # Path to YOLOv8 segmentation model
+confidence_threshold: 0.25  # Lower confidence threshold to detect more of the body (default was 0.5)
+device: null  # Device for model inference (null = auto-detect, 'cpu', 'cuda', 'mps')
+
+# Segmentation enhancement - optimized for better body shape detection
+iou_threshold: 0.4  # Lowered IoU threshold for more overlap tolerance (default was 0.5)
+apply_morphology: true  # Apply morphological operations to improve mask completeness
+alpha_edge_smooth: true  # Apply slight smoothing to alpha channel edges
+
+# Advanced segmentation parameters
+mask_threshold: 0.2  # Lower threshold to capture more of the person (default was 0.3)
+morph_kernel_size: 7  # Larger kernel for morphological operations (default was 5)
+morph_iterations: 2   # More iterations for dilation to fill gaps (default was 1)
+overlap_threshold: 0.25  # Lower threshold for merging overlapping masks (default was 0.3)
+
+# Viewpoint parameters (for 360° to 2D conversion)
+viewpoint:
+  hfov: 90.0  # Horizontal field of view (degrees)
+  vfov: 60.0  # Vertical field of view (degrees)
+  yaw: 0.0    # Yaw angle (degrees)
+  pitch: 0.0  # Pitch angle (degrees)
+  roll: 0.0   # Roll angle (degrees)
+
+# Video encoding parameters
+encoding:
+  crf: 20      # Improved quality (lower CRF, default was 23)
+  preset: medium  # VP9 encoding preset: fast, medium, slow
+
+# External tools
+ffmpeg_path: ffmpeg  # Path to FFmpeg executable
+ffprobe_path: ffprobe  # Path to FFprobe executable
+
+# Cleanup temporary files
+cleanup_temp: true  # Whether to clean up temporary files after processing
+
+# Progress display
+show_progress: true  # Whether to show progress bar during processing

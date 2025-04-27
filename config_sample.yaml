@@ -1,0 +1,39 @@
+# Sample configuration for 360 VR Person Segmentation Pipeline
+
+# Input/Output
+input_video: input.mp4  # Path to input 360° video
+output_video: output.webm  # Path to output WebM video with alpha channel
+temp_directory: ./temp  # Directory for temporary files
+
+# Model settings
+model_path: ./models/yolov8s-seg.pt  # Path to YOLOv8 segmentation model
+confidence_threshold: 0.3  # Confidence threshold for person detection (0.0-1.0)
+device: null  # Device for model inference (null = auto-detect, 'cpu', 'cuda', 'mps')
+
+# Segmentation enhancement
+iou_threshold: 0.5  # IoU threshold for Non-Maximum Suppression (0.0-1.0)
+apply_morphology: true  # Whether to apply morphological operations to improve mask completeness
+alpha_edge_smooth: true  # Whether to apply slight smoothing to alpha channel edges
+
+# Viewpoint parameters (for 360° to 2D conversion)
+viewpoint:
+  hfov: 90.0  # Horizontal field of view (degrees)
+  vfov: 60.0  # Vertical field of view (degrees)
+  yaw: 0.0    # Yaw angle (degrees)
+  pitch: 0.0  # Pitch angle (degrees)
+  roll: 0.0   # Roll angle (degrees)
+
+# Video encoding parameters
+encoding:
+  crf: 23      # Constant Rate Factor (quality): 0-63, lower = higher quality
+  preset: medium  # VP9 encoding preset: fast, medium, slow
+
+# External tools
+ffmpeg_path: ffmpeg  # Path to FFmpeg executable
+ffprobe_path: ffprobe  # Path to FFprobe executable
+
+# Cleanup temporary files
+cleanup_temp: true  # Whether to clean up temporary files after processing
+
+# Progress display
+show_progress: true  # Whether to show progress bar during processing

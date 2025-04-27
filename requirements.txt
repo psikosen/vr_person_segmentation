@@ -1,0 +1,7 @@
+numpy>=1.20.0
+opencv-python>=4.5.0
+ultralytics>=8.0.0  # For YOLOv8-seg
+pyyaml>=6.0         # For configuration handling
+tqdm>=4.64.0        # For progress bars
+pillow>=9.0.0       # For image processing
+pytest>=7.0.0       # For testing
