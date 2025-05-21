@@ -6,19 +6,35 @@ input_video: input.mp4  # Path to input video (can be 360° or standard 2D)
 # If '360', viewport extraction will be applied.
 # If '2D', viewport extraction will be skipped.
 # Default is '360' if not specified in config.py (though it's good practice to set it here).
-input_video_type: '360' # This will be overridden by CLI for tests
+input_video_type: '360'
 output_video: output.webm  # Path to output WebM video with alpha channel
 temp_directory: ./temp  # Directory for temporary files
 
 # Model settings
-model_path: ./models/dummy_model.pt  # Path to YOLOv8 segmentation model - Using dummy model for test
-confidence_threshold: 0.99  # Confidence threshold for person detection (0.0-1.0) - High to avoid processing
+model_path: ./models/yolov8s-seg.pt  # Path to YOLOv8 segmentation model
+confidence_threshold: 0.25  # Confidence threshold for person detection (0.0-1.0)
 device: null  # Device for model inference (null = auto-detect, 'cpu', 'cuda', 'mps')
 
 # Segmentation enhancement
 iou_threshold: 0.5  # IoU threshold for Non-Maximum Suppression (0.0-1.0)
 apply_morphology: true  # Whether to apply morphological operations to improve mask completeness
 alpha_edge_smooth: true  # Whether to apply slight smoothing to alpha channel edges
+
+# --- Recommended values for better mask accuracy ---
+# Defines the threshold for binarizing the raw segmentation mask from YOLO.
+# Lower values make the mask larger. (Default in pipeline.py if not set: 0.3)
+mask_threshold: 0.2
+
+# Kernel size for morphological operations (closing and dilation).
+# Larger kernels have a stronger effect. (Default in pipeline.py if not set: 5)
+morph_kernel_size: 7
+
+# Number of iterations for dilation operation.
+# More iterations expand the mask further. (Default in pipeline.py if not set: 1)
+morph_iterations: 2
+# --- End of recommended values ---
+
+# overlap_threshold: 0.3 # Example: Threshold for merging overlapping masks (if implemented)
 
 # Viewpoint parameters (for 360° to 2D conversion)
 viewpoint:
@@ -38,7 +54,7 @@ ffmpeg_path: ffmpeg  # Path to FFmpeg executable
 ffprobe_path: ffprobe  # Path to FFprobe executable
 
 # Cleanup temporary files
-cleanup_temp: false  # Whether to clean up temporary files after processing - Set to false for test inspection
+cleanup_temp: true  # Whether to clean up temporary files after processing
 
 # Progress display
-show_progress: false  # Whether to show progress bar during processing - Set to false for test
+show_progress: true  # Whether to show progress bar during processing
