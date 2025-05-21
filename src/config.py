@@ -45,6 +45,7 @@ def load_config(args: Optional[argparse.Namespace] = None,
         'input_video': None,
         'output_video': None,
         'temp_directory': Path('./temp'),
+        'input_video_type': '360', # Default value
         
         # Model settings
         'model_path': Path('./models/yolov8s-seg.pt'),
@@ -118,7 +119,16 @@ def load_config(args: Optional[argparse.Namespace] = None,
                 # Regular parameters
                 elif key in config:
                     config[key] = value
+                # Specifically handle input_video_type from args to ensure CLI priority
+                # This is done after initial arg_dict loop for other general params
+                # but before the final default is set.
+                if hasattr(args, 'input_video_type') and args.input_video_type is not None:
+                    config['input_video_type'] = args.input_video_type
     
+    # Ensure input_video_type has a default if not set by YAML or CLI args
+    if 'input_video_type' not in config or config['input_video_type'] is None:
+        config['input_video_type'] = '360' # Default value if not in file or CLI
+
     # Validate configuration
     _validate_config(config)
     
@@ -177,6 +187,15 @@ def _validate_config(config: Dict) -> None:
     # Validate numerical ranges
     if not (0.0 <= config['confidence_threshold'] <= 1.0):
         raise ValueError(f"Confidence threshold must be between 0.0 and 1.0: {config['confidence_threshold']}")
+
+    # Validate input_video_type
+    valid_video_types = ['2D', '360']
+    if config.get('input_video_type') not in valid_video_types:
+        logging.warning(
+            f"Invalid input_video_type: '{config.get('input_video_type')}'. "
+            f"Must be one of {valid_video_types}. Defaulting to '360'."
+        )
+        config['input_video_type'] = '360'
     
     # Validate viewpoint parameters
     for param, value in config['viewpoint'].items():
@@ -227,8 +246,15 @@ def parse_args() -> argparse.Namespace:
     
     # Core arguments
     parser.add_argument('--config', type=str, help='Path to configuration file (YAML)')
-    parser.add_argument('--input-video', type=str, help='Path to input 360° video file')
+    parser.add_argument('--input-video', type=str, help='Path to input video file')
     parser.add_argument('--output-video', type=str, help='Path to output WebM video file')
+    parser.add_argument(
+        '--input-video-type',
+        type=str,
+        choices=['2D', '360'],
+        default=None, # Defaulting to None to allow YAML to take precedence if CLI arg not used
+        help="Type of the input video ('2D' or '360'). Overrides config file if set. Defaults to '360' if not specified anywhere."
+    )
     parser.add_argument('--model-path', type=str, help='Path to YOLOv8-seg model file')
     parser.add_argument('--confidence', type=float, dest='confidence_threshold',
                         help='Confidence threshold for person detection (0.0-1.0)')

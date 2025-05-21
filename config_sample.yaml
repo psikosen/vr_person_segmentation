@@ -1,13 +1,18 @@
 # Sample configuration for 360 VR Person Segmentation Pipeline
 
 # Input/Output
-input_video: input.mp4  # Path to input 360° video
+input_video: input.mp4  # Path to input video (can be 360° or standard 2D)
+# input_video_type: Specify if the input video is '360' (equirectangular) or '2D' (standard).
+# If '360', viewport extraction will be applied.
+# If '2D', viewport extraction will be skipped.
+# Default is '360' if not specified in config.py (though it's good practice to set it here).
+input_video_type: '360' # This will be overridden by CLI for tests
 output_video: output.webm  # Path to output WebM video with alpha channel
 temp_directory: ./temp  # Directory for temporary files
 
 # Model settings
-model_path: ./models/yolov8s-seg.pt  # Path to YOLOv8 segmentation model
-confidence_threshold: 0.3  # Confidence threshold for person detection (0.0-1.0)
+model_path: ./models/dummy_model.pt  # Path to YOLOv8 segmentation model - Using dummy model for test
+confidence_threshold: 0.99  # Confidence threshold for person detection (0.0-1.0) - High to avoid processing
 device: null  # Device for model inference (null = auto-detect, 'cpu', 'cuda', 'mps')
 
 # Segmentation enhancement
@@ -33,7 +38,7 @@ ffmpeg_path: ffmpeg  # Path to FFmpeg executable
 ffprobe_path: ffprobe  # Path to FFprobe executable
 
 # Cleanup temporary files
-cleanup_temp: true  # Whether to clean up temporary files after processing
+cleanup_temp: false  # Whether to clean up temporary files after processing - Set to false for test inspection
 
 # Progress display
-show_progress: true  # Whether to show progress bar during processing
+show_progress: false  # Whether to show progress bar during processing - Set to false for test

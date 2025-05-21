@@ -163,6 +163,9 @@ def run_pipeline(config: Dict[str, Any]) -> bool:
     # Get show_progress from config or default to True
     show_progress = config.get('show_progress', True)
     
+    # Get input video type, default to '360'
+    input_video_type = config.get('input_video_type', '360')
+    
     # Get optional advanced segmentation parameters with defaults
     iou_threshold = config.get('iou_threshold', 0.5)
     apply_morphology = config.get('apply_morphology', True)
@@ -177,34 +180,45 @@ def run_pipeline(config: Dict[str, Any]) -> bool:
     # Create temporary directory if it doesn't exist
     temp_directory.mkdir(parents=True, exist_ok=True)
     
-    # Define paths for intermediate files
-    extracted_video_path = temp_directory / "extracted_viewport.mp4"
+    # Path for the video to be processed by segmentation
+    video_to_process_path: Path
+    # Path for the extracted viewport, only used if input_video_type is '360'
+    # Consistently name it for clarity in cleanup, even if it's only set in one branch.
+    extracted_viewport_file_path = temp_directory / "extracted_viewport.mp4" 
     
-    logging.info(f"Starting 360 VR Person Segmentation Pipeline")
+    logging.info(f"Starting VR Person Segmentation Pipeline") # Generic name now
     logging.info(f"Input video: {input_video_path}")
     logging.info(f"Output video: {output_video_path}")
     
     try:
-        # Step 1: Extract viewport from 360° video
-        logging.info("Step 1: Extracting viewport from 360° video...")
-        
-        extraction_success = extract_viewport(
-            input_video_path,
-            extracted_video_path,
-            viewpoint_params,
-            ffmpeg_path
-        )
-        
-        if not extraction_success:
-            logging.error("Viewport extraction failed")
+        if input_video_type == '360':
+            logging.info("Input video type is '360'. Proceeding with viewport extraction.")
+            logging.info("Step 1: Extracting viewport from 360° video...")
+            
+            extraction_success = extract_viewport(
+                input_360_path=input_video_path,
+                output_2d_path=extracted_viewport_file_path, # Use the consistently named variable
+                viewpoint_params=viewpoint_params,
+                ffmpeg_path=ffmpeg_path
+            )
+            
+            if not extraction_success:
+                logging.error("Viewport extraction failed")
+                return False
+            
+            logging.info(f"Viewport extracted to: {extracted_viewport_file_path}")
+            video_to_process_path = extracted_viewport_file_path
+        elif input_video_type == '2D':
+            logging.info("Input video type is '2D'. Skipping viewport extraction.")
+            video_to_process_path = input_video_path
+        else:
+            logging.error(f"Invalid input_video_type: {input_video_type}. Supported values are '2D' and '360'.")
             return False
-        
-        logging.info(f"Viewport extracted to: {extracted_video_path}")
-        
-        # Step 2: Get video properties of the extracted video
+            
+        # Step 2: Get video properties of the (potentially extracted) video
         logging.info("Step 2: Getting video properties...")
         
-        video_properties = get_video_properties(extracted_video_path, ffprobe_path)
+        video_properties = get_video_properties(video_to_process_path, ffprobe_path)
         width = video_properties['width']
         height = video_properties['height']
         fps = video_properties['fps']
@@ -233,7 +247,7 @@ def run_pipeline(config: Dict[str, Any]) -> bool:
                     logging.info(f"Processing frame {frame_number}/{total_frames} ({percent:.1f}%)")
             
             for frame_number, frame, person_masks in process_frames(
-                extracted_video_path,
+                video_to_process_path, # Use the correct path here
                 model, 
                 confidence_threshold,
                 iou_threshold=iou_threshold,
@@ -274,11 +288,15 @@ def run_pipeline(config: Dict[str, Any]) -> bool:
             logging.info("Step 5: Cleaning up temporary files...")
             
             try:
-                # Remove extracted video file
-                if extracted_video_path.exists():
-                    os.remove(extracted_video_path)
+                # Remove extracted video file only if it was created
+                if input_video_type == '360' and extracted_viewport_file_path.exists():
+                    logging.info(f"Removing extracted viewport file: {extracted_viewport_file_path}")
+                    os.remove(extracted_viewport_file_path)
                 
                 # Try to remove temp directory if empty
+                # Note: This might not remove the directory if other temp files were created by other parts of the pipeline
+                # or if the input video was a '2D' type and resided in the temp_directory (not typical).
+                # For now, we only attempt removal if it's truly empty.
                 if temp_directory.exists() and not list(temp_directory.iterdir()):
                     os.rmdir(temp_directory)
             
